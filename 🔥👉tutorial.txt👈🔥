@@ -1,0 +1,141 @@
+To execute the script specifically for Brevent or Qute Browser applications, you have a few options:
+
+### Option 1: Run the full script with focus on specific apps
+
+1. Save the script to your computer as `android_permissions.sh`
+2. Make it executable: `chmod +x android_permissions.sh`
+3. Connect your Android device with USB debugging enabled
+4. Run the script: `./android_permissions.sh`
+
+The script will automatically set up permissions for both Brevent and Qute.
+
+### Option 2: Extract just the Brevent or Qute sections
+
+If you only want to run the script for one specific app, you can extract just that portion:
+
+#### For Brevent only:👇🔥👇
+
+```bash
+#!/bin/bash
+# Check ADB
+if ! command -v adb &> /dev/null; then
+    echo "[ERROR] ADB is not installed"
+    exit 1
+fi
+
+# Check device
+devices=$(adb devices | grep -v "List" | grep "device" | wc -l)
+if [ "$devices" -eq 0 ]; then
+    echo "[ERROR] No device connected"
+    exit 1
+fi
+
+# Setup Brevent
+echo "Setting up Brevent..."
+adb shell pm enable me.piebridge.brevent
+adb shell pm grant me.piebridge.brevent android.permission.PACKAGE_USAGE_STATS
+adb shell pm grant me.piebridge.brevent android.permission.GET_APP_OPS_STATS
+adb shell pm grant me.piebridge.brevent android.permission.DUMP
+adb shell pm grant me.piebridge.brevent android.permission.WRITE_SECURE_SETTINGS
+adb shell pm grant me.piebridge.brevent android.permission.REAL_GET_TASKS
+adb shell pm grant me.piebridge.brevent android.permission.INTERACT_ACROSS_USERS
+
+echo "Brevent setup completed!"
+```
+
+#### For Qute Browser only:👇🔥👇
+
+```bash
+#!/bin/bash
+# Check ADB
+if ! command -v adb &> /dev/null; then
+    echo "[ERROR] ADB is not installed"
+    exit 1
+fi
+
+# Check device
+devices=$(adb devices | grep -v "List" | grep "device" | wc -l)
+if [ "$devices" -eq 0 ]; then
+    echo "[ERROR] No device connected"
+    exit 1
+fi
+
+# Setup Qute Browser👇🔥👇
+echo "Setting up Qute Browser..."
+adb shell pm enable com.qutebrowser.qute
+adb shell pm grant com.qutebrowser.qute android.permission.INTERNET
+adb shell pm grant com.qutebrowser.qute android.permission.ACCESS_NETWORK_STATE
+adb shell pm grant com.qutebrowser.qute android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant com.qutebrowser.qute android.permission.READ_EXTERNAL_STORAGE
+adb shell pm grant com.qutebrowser.qute android.permission.CAMERA
+adb shell pm grant com.qutebrowser.qute android.permission.RECORD_AUDIO
+adb shell pm grant com.qutebrowser.qute android.permission.MODIFY_AUDIO_SETTINGS
+
+echo "Qute Browser setup completed!"
+```
+
+### Option 3: Manual commands through ADB
+
+If you prefer to run individual commands for debugging:
+
+#### For Brevent:👇👇👇🔥
+```
+adb shell pm enable me.piebridge.brevent
+adb shell pm grant me.piebridge.brevent android.permission.PACKAGE_USAGE_STATS
+adb shell pm grant me.piebridge.brevent android.permission.GET_APP_OPS_STATS
+adb shell pm grant me.piebridge.brevent android.permission.DUMP
+adb shell pm grant me.piebridge.brevent android.permission.WRITE_SECURE_SETTINGS
+adb shell pm grant me.piebridge.brevent android.permission.REAL_GET_TASKS
+adb shell pm grant me.piebridge.brevent android.permission.INTERACT_ACROSS_USERS
+```
+
+#### For Qute Browser:👇👇👇🔥
+```
+adb shell pm enable com.qutebrowser.qute
+adb shell pm grant com.qutebrowser.qute android.permission.INTERNET
+adb shell pm grant com.qutebrowser.qute android.permission.ACCESS_NETWORK_STATE
+adb shell pm grant com.qutebrowser.qute android.permission.WRITE_EXTERNAL_STORAGE
+adb shell pm grant com.qutebrowser.qute android.permission.READ_EXTERNAL_STORAGE
+adb shell pm grant com.qutebrowser.qute android.permission.CAMERA
+adb shell pm grant com.qutebrowser.qute android.permission.RECORD_AUDIO
+adb shell pm grant com.qutebrowser.qute android.permission.MODIFY_AUDIO_SETTINGS
+```
+
+Remember, these commands require:
+1. A connected Android device
+2. USB debugging enabled
+3. ADB installed on your computer
+4. The apps (Brevent or Qute) already installed on your device
+
+
+
+
+Yes, you can execute all the commands from the script by creating a single file named `Permission-Control.sh`. This file will contain all the permissions and settings we discussed. Here's how to do it:
+
+1. Create a file called `Permission-Control.sh`
+2. Copy all the code from the script I provided into this file
+3. Make the file executable with the command: `chmod +x Permission-Control.sh`
+4. Run the script with: `./Permission-Control.sh`
+
+The script will automatically execute all commands for all three applications (Termux, Brevent, and Qute Browser) in sequence.
+
+If you want to rename the original script I provided to `Permission-Control.sh` instead of `android_permissions.sh`, that's perfectly fine. The name of the file doesn't affect how it works.
+
+To make it clear, here's the process:
+
+```
+# Create the file
+touch Permission-Control.sh
+
+# Copy the entire script content into Permission-Control.sh
+# (Use a text editor like nano, vim, or any GUI editor)
+🔥👉nano Permission-Control.sh👈🔥
+
+# Make it executable
+🔥👉chmod +x Permission-Control.sh👈🔥
+
+# Run it
+🔥👉./Permission-Control.sh👈🔥
+```
+
+When you run this script, it will execute all the commands for all three applications in one go, checking each step to make sure it completed successfully.
